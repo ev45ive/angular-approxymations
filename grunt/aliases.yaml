@@ -1,2 +1,19 @@
-default:
+dev:
  - jshint
+ - copy:html
+ - concat:scripts
+ - concat:styles
+ 
+dist:
+ - jshint
+ - copy:html
+ - concat:scripts
+ - concat:styles
+
+test:
+ - karma
+
+default:
+ - dist
+ 
+
