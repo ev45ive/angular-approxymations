@@ -1,0 +1,25 @@
+{
+  "name": "jdp",
+  "version": "0.0.1",
+  "authors": [
+    "Mateusz Kulesza <mateusz@kulesza.biz>"
+  ],
+  "description": "JDP JavaScript Test",
+  "main": "dist/main.js",
+  "license": "Proprietary",
+  "homepage": "http://github.com/ev45ive",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.25",
+    "bootstrap-less": "~3.2.0",
+    "c3": "~0.3.0",
+    "d3": "~3.4.11"
+  }
+}
