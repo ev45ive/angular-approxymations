@@ -1,15 +1,27 @@
 
-<select ng-model="number">
-    <option ng-repeat="iteration in iterations" value="{{iteration}}">{{iteration}}</option>
-</select>
+<form name="approxymations_form">
+    <label> No. of iterations: </label>
+    <select ng-model="iteration" ng-init="iteration = iterations[number]" ng-options="item.value for item in iterations">
+        <option ng-repeat="item in iterations track by item.value" value="{{item.value}}">{{item.label}}</option>
+    </select>
 
-<select ng-model="algorithm">
-    <option ng-repeat="approx in algorithms" value="{{approx.algorithm}}">{{approx.label}}</option>
-</select>
+    <label> Algorithm: </label>
+    <select ng-model="algorithm">
+        <option ng-repeat="approx in algorithms" value="{{approx.algorithm}}">{{approx.label}}</option>
+    </select>
 
-<button ng-click="approxymator = generate(algorithm,number)">Generate</button>
+    <label>Table</label><input type="checkbox" name="table" ng-model="table">
+    <label>Chart</label><input type="checkbox" name="table" ng-model="chart">
+    <button type="submit" ng-click="approxymator = generate(algorithm,iteration.value)">Generate</button>
+</form>
 
-<div ng-repeat="term in approxymator.getTerms()">
+<div ng-if="approxymator">Approxymation : {{approxymator.getApproxymation()}}</div>
+
+<div ng-if="table" ng-repeat="term in approxymator.getTerms()">
     {{$index}} - {{0+term}} - {{term.getNumerator()}} / {{term.getDenominator()}}
 </div>
-<div>Approxymation : {{approxymator.getApproxymation()}}</div>
+
+<div ng-if="approxymator && chart">
+    Chart
+    <c3-chart bindTo="chart" id="chart" label="approxymator.name" data="chartData"></c3-chart>
+</div>

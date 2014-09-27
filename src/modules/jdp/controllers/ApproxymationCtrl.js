@@ -12,13 +12,26 @@
     $scope.table = $scope.table || true;
     
     // Create array with available numbers of iterations
-    $scope.iterations = Array.apply(null, {length: $scope.max_iterations }).map(Number.call, Number);
+    $scope.iterations = Array.apply(null,{length:$scope.max_iterations})
+                        .map(function(n,index){ 
+                            return {
+                                label: index,
+                                value: index 
+                            };
+                        });
+
     
     // List of available algorithms
     $scope.algorithms = algorithms;
     
     // generate approxymation iterations
     $scope.generate = function(approxymator,number){
-        return ApproxymationService.getApproxymator(approxymator).calculate(number);      
+        // Generate Chart data series
+        var approx = ApproxymationService.getApproxymator(approxymator).calculate(number);
+        
+        // Get Terms and hard-cut to precision for chart
+        $scope.chartData = approx.getTerms().map(function(t){ return (0+t).toFixed(20); });
+        return approx;     
     };
+    
  }]);
