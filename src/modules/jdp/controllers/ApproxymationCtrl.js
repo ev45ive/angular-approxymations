@@ -1,22 +1,24 @@
 /*
- *
+ * Controller for displaing different algorithms' approxymation as tables and charts
  */
- angular.module('jdp').controller('ApproxymationsCtrl',['$scope','ApproxymationService',
- function($scope,ApproxymationService){
+ angular.module('jdp').controller('ApproxymationsCtrl',['$scope','ApproxymationService','algorithms',
+ function($scope,ApproxymationService,algorithms){
  
-    // Create array with available numbers of iterations
-    $scope.iterations = Array.apply(null, {length: 20}).map(Number.call, Number);
+    // Defaults
+    $scope.max_iterations = $scope.max_iterations  || 20;
+    $scope.number = $scope.number || 15;
+    $scope.algorithm = $scope.algorithm || "PI.Newton";
+    $scope.chart = $scope.chart || false;
+    $scope.table = $scope.table || true;
     
-    $scope.approxymators = [
-        { label: 'Newtons PI', approxymator: ApproxymationService.getApproxymator('Newton PI')},
-        { label: "Chudnovsky's PI", approxymator: ApproxymationService.getApproxymator("Chudnovsky's PI")},
-        { label: "Madhava's PI", approxymator: ApproxymationService.getApproxymator("Madhava's PI")},
-        { label: "Maclaurin's Exponential", approxymator: ApproxymationService.getApproxymator("Maclaurin's Exponential")},
-    ];
-    console.log(ApproxymationService.getApproxymators());
-    console.log($scope.approxymators[3].approxymator.calculate(5).getTerms().map(Number));
-    console.log($scope.approxymators[3].approxymator.calculate(15).getApproxymation());
-    $scope.chart = false;
-    $scope.table = false;
- 
+    // Create array with available numbers of iterations
+    $scope.iterations = Array.apply(null, {length: $scope.max_iterations }).map(Number.call, Number);
+    
+    // List of available algorithms
+    $scope.algorithms = algorithms;
+    
+    // generate approxymation iterations
+    $scope.generate = function(approxymator,number){
+        return ApproxymationService.getApproxymator(approxymator).calculate(number);      
+    };
  }]);

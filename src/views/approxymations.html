@@ -1,8 +1,15 @@
-Test
-<select>
-<option ng-repeat="iteration in iterations" value="iteration">{{iteration}}</option>
+
+<select ng-model="number">
+    <option ng-repeat="iteration in iterations" value="{{iteration}}">{{iteration}}</option>
 </select>
 
-<div ng-repeat="approx in approxymators">
-    {{approx.label}} -- {{approx.approxymator.calculate(5).getApproxymation()}}
+<select ng-model="algorithm">
+    <option ng-repeat="approx in algorithms" value="{{approx.algorithm}}">{{approx.label}}</option>
+</select>
+
+<button ng-click="approxymator = generate(algorithm,number)">Generate</button>
+
+<div ng-repeat="term in approxymator.getTerms()">
+    {{$index}} - {{0+term}} - {{term.getNumerator()}} / {{term.getDenominator()}}
 </div>
+<div>Approxymation : {{approxymator.getApproxymation()}}</div>
