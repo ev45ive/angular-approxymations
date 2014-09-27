@@ -57,7 +57,7 @@ describe('Polynomial Module',function(){
 	        // sample easily predictable approxymator that sums factorials
 	        factorials_approx = new Polynomial.IterativeApproxymator("test-approxymator", 
 	            function(currentTerm, index, parameter){
-                    return currentTerm.multiply(index+1);
+                    return currentTerm.multiply(index+1); 
                 }, new Polynomial.Term(1,1), 1);
 	        });
 	

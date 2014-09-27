@@ -22,6 +22,7 @@
     "c3": "~0.3.0",
     "d3": "~3.4.11",
     "normalize.css": "~3.0.1",
-    "angular-mocks": "~1.2.25"
+    "angular-mocks": "~1.2.25",
+    "angular-route": "~1.2.25"
   }
 }

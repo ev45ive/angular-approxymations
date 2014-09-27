@@ -5,7 +5,11 @@ module.exports = {
     scripts: {
         src: [  
             'bower_components/angular/angular.min.js',
-            'src/polynomial-approxymator/main.js',
+            'bower_components/angular-route/angular-route.min.js',
+            'src/modules/polynomial-approxymator/main.js',
+            'src/modules/jdp/main.js',
+            'src/modules/jdp/**/*.js',
+            'src/app.js',
             'src/**/*.js'
         ],
         dest: 'dist/main.js',
@@ -13,7 +17,7 @@ module.exports = {
     styles: {
         src: [  
             'bower_components/normalize.css/normalize.css',
-            'src/jdp/styles/main.css',
+            'src/modules/jdp/styles/main.css',
             'src/**/*.js'
         ],
         dest: 'dist/styles/main.css',

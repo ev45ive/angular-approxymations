@@ -1,0 +1,8 @@
+Test
+<select>
+<option ng-repeat="iteration in iterations" value="iteration">{{iteration}}</option>
+</select>
+
+<div ng-repeat="approx in approxymators">
+    {{approx.label}} -- {{approx.approxymator.calculate(5).getApproxymation()}}
+</div>
