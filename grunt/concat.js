@@ -18,10 +18,8 @@ module.exports = {
     },
     styles: {
         src: [  
-            'bower_components/normalize.css/normalize.css',
-            'bower_components/c3/c3.css',
-            'src/modules/jdp/styles/main.css',
-            'src/**/*.js'
+            'dist/styles/main.css',
+            'bower_components/c3/c3.css'
         ],
         dest: 'dist/styles/main.css',
     }

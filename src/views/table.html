@@ -1,0 +1,11 @@
+<table class="table">
+    <tr>
+        <th>Iteration</th>
+        <th>Polynomial Term</th>
+    </tr>
+    <tr ng-repeat="term in approxymator.getTerms()">
+        <td>k = {{term.index+1}}</td>
+        <td>{{0+term}}</td>
+        <td>{{approxymator && approxymator.getApproxymation($index).toPrecision(10)}}</td>
+    </tr>
+</table>

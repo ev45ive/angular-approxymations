@@ -55,8 +55,8 @@
         // function generating next polynomial term
         this.generator = termGenerator;
         
-        // initial term - defaults to zero, neutral under sum.
-        this.firstTerm = firstTerm || new Polynomial.Term(0);
+        // initial term
+        this.firstTerm = firstTerm;
         
         // default parameter that can be overriden in calculate method
         this.parameter = parameter;
@@ -70,23 +70,38 @@
         },
         
         calculate: function(numberOfTerms,parameter){
-            this.terms = [this.firstTerm];
+            this.terms = [];
             
-            for(var index = 1; index < numberOfTerms; index++){
-                this.terms.push( this.generator( this.terms[index-1], index, parameter || this.parameter) );
+            if(this.firstTerm){
+                this.terms.push(this.firstTerm);
+            }
+            
+            var index = this.terms.length;
+            for(; index < numberOfTerms; index++){
+                var currentTerm = this.terms[index-1] || undefined;
+                var term = this.generator(currentTerm , index, parameter || this.parameter);
+                term.index = index;
+                
+                this.terms.push( term );
             }
             
             return this;
         },
         
-        getApproxymation:function(){
-            return this.aggregator();
+        getApproxymation:function(iterations){
+            return this.aggregator(iterations);
         }, 
         
         // Sums all the terms to get approxymation
         // TODO: support sum, mean, and custom approx algorithms
-        sumAggregator: function(){
-            return this.terms.reduce(function(prev, current, index, terms){            
+        sumAggregator: function(index){
+            if(!this.terms){ 
+                return undefined;
+            }
+            
+            index = 'undefined' === typeof index? this.terms.length : index;
+            
+            return this.terms.slice(0,index+1).reduce(function(prev, current, index, terms){            
                 return prev + current;
             });
         },

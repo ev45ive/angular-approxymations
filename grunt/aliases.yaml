@@ -2,12 +2,14 @@ dev:
  - jshint
  - copy:html
  - concat:scripts
+ - less:dev
  - concat:styles
  
 dist:
  - jshint
  - copy:html
  - concat:scripts
+ - less:dev
  - concat:styles
 
 test:

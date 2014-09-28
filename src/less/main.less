@@ -1,0 +1,53 @@
+@import "bootstrap.less";
+
+.vendor(@property, @value) {
+    -webkit-@{property}: @value;
+     -khtml-@{property}: @value;
+       -moz-@{property}: @value;
+            @{property}: @value;
+}
+
+.header-pi-container{
+}
+
+.header-pi {
+    width:2em;
+    height:2em;
+    font-size:5em;
+    position:absolute;
+    right:0em;
+    top:0em;
+    text-align:center;
+}
+
+
+.header-pi {
+    .vendor(animation-name,spinner);
+    .vendor(animation-timing-function, linear);
+    .vendor(animation-iteration-count, infinite);
+    .vendor(animation-duration, 6s);
+
+    .vendor(transform-style, preserve-3d);
+    .vendor(transform-origin, center center);
+}
+
+.header-pi:hover {
+    .vendor(animation-play-state, paused);
+}
+
+.wide{
+    width:100%;
+}
+
+
+/* WebKit and Opera browsers */
+@-webkit-keyframes spinner {
+    from { -webkit-transform: rotateY(0deg);    }
+    to   { -webkit-transform: rotateY(-360deg); }
+}
+
+/* all other browsers */
+@keyframes spinner {
+    from { .vendor(transform, rotateY(0deg));    }
+    to   { .vendor(transform, rotateY(-360deg)); }
+}

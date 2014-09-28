@@ -1,29 +1,37 @@
-angular.module('jdp').directive('c3Chart',function(){
+angular.module('jdp').directive('c3Chart',['$timeout',function($timeout){
     return {
         restrict:'E',
-        template: '<div id="{{bindTo}}"></div>',
+        template: '<div></div>',
         scope:{
             bindTo: '@',
             config: '=',
             data: '=',
             label: '='
         },
-        link: function($scope,element,attrs){
-        
-            var chart = c3.generate({
-                bindTo: '#chart',
-                data: {
-                    columns:[['Polynomial Terms'].concat($scope.data)]
+        compile: function(){      
+            return { 
+                post: function($scope,element,attrs){                
+                    var chart = {};
+                    
+                    // set id to bind to
+                    element.attr('id',$scope.bindTo);
+                    
+                    // generate chart
+                    chart = c3.generate(angular.extend({
+                        bindTo: '#'+$scope.bindTo,
+                        data: {
+                            columns:$scope.data
+                        }
+                    },$scope.config));
+                
+                    // bind to data changes
+                    $scope.$watch('data',function(){
+                        chart.load({
+                            columns:$scope.data
+                        });
+                    });            
                 }
-            });
-            
-            // bind to data changes
-            $scope.$watch('data',function(){
-                chart.load({
-                    columns:[['Polynomial Terms'].concat($scope.data)]
-                });
-            });
-          
+            };
         }
     };
-});
+}]);

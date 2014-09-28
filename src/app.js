@@ -17,10 +17,10 @@ jdpApp.config(['$routeProvider', '$locationProvider', function($routeProvider,$l
 }]);
 
 jdpApp.value('algorithms',[
-    { label: "Newton's PI", constant:"PI", algorithm: "PI.Newton"},
-    { label: "Chudnovsky's PI", constant:"PI", algorithm: "PI.Chudnovsky"},
-    { label: "Madhava's PI", constant:"PI", algorithm: "PI.Madhava"},
-    { label: "Maclaurin's Exponential", constant:"Exponential", algorithm: "Exponential.Maclaurin"},
+    { label: "Newton", constant:"PI", algorithm: "PI.Newton"},
+    { label: "Chudnovsky", constant:"PI", algorithm: "PI.Chudnovsky"},
+    { label: "Madhava", constant:"PI", algorithm: "PI.Madhava"},
+    { label: "Maclaurin", constant:"Exponential", algorithm: "Exponential.Maclaurin"},
 ]);
 
 jdpApp.config(['ApproxymationServiceProvider',function(PolyApproxProvider){
@@ -29,13 +29,11 @@ jdpApp.config(['ApproxymationServiceProvider',function(PolyApproxProvider){
      * Newton's PI
      */
     PolyApproxProvider.createApproxymator("PI.Newton",function(currentTerm,index,parameter){
-        // zero-based index
-        var k = index-1;
-        
+        var k = index;
         // newtons approxymation of PI
         return new Polynomial.Term( ( Math.pow(2, k) * Math.pow(Math.factorial(k), 2) *2),
                                     ( Math.factorial(2 * k + 1) ));
-    },new Polynomial.Term(0),0);
+    });
     
     
     /*
@@ -43,15 +41,14 @@ jdpApp.config(['ApproxymationServiceProvider',function(PolyApproxProvider){
      */
     PolyApproxProvider.createApproxymator("PI.Chudnovsky",function(currentTerm,index,parameter){
             // zero-based index
-            var k = index-1;
+            var k = index;
             
             // newtons approxymation of PI
             return new Polynomial.Term( 12*(Math.pow(-1, k) * Math.factorial(6 * k) * (163 * 3344418 * k + 13591409)),
                                         (Math.factorial(3 * k) * Math.pow(Math.factorial(k), 3) * Math.pow(640320, (3 * k + 3 / 2))));
-        },
-        new Polynomial.Term(0),0,
-        // special aggreagator
-        function(){ return 1/this.sumAggregator(); }
+        },undefined,0,
+        // special aggregator
+        function(index){ return 1/this.sumAggregator(index); }
     );
     
     /* 
